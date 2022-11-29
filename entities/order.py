@@ -1,5 +1,4 @@
 from datetime import date
-
 from entities.book import Book
 from entities.customer import Customer
 
@@ -11,3 +10,7 @@ class Order:
         self.date_order = date_order
         self.purchased_book: Book
         self.total_price: float = 0
+
+    def atualizar_preco_total(self) -> None:
+        self.total_price += self.purchased_book.price
+ 

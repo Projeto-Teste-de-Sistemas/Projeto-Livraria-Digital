@@ -42,7 +42,7 @@ class BookRepository:
 
     def __str__(self) -> str:
         formatText = "{0:<5} {1:<25} {2:<20} {3:<20} {4:<5} {5:<10}\n"
-        str_books = formatText.format("Id", "Ttítulo","Autor", "Assunto", "Valor", "Estoque")
+        str_books = formatText.format("Id", "Título","Autor", "Assunto", "Valor", "Estoque")
 
         for item in self.list_books:
             str_books += formatText.format(item.id, item.name,item.author,item.category,item.price,item.stock)

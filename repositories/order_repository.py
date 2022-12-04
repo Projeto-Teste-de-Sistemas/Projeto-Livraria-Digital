@@ -21,5 +21,10 @@ class OrderRepository:
         return False
 
     def __str__(self) -> str:
+        formatText = "{0:<9} {1:<10} {2:<18} {3:<25}\n"
+        str_orders = formatText.format("Código", "Cliente", "Data do pedido", "Livro")
+
         for order in self.list_orders:
-            return f"Código do Pedido: {order.id}\nCliente: {order.customer.name}\nData do pedido: {order.date_order}\nLivro escolhido: {order.purchased_book.name} \n"
+            str_orders += formatText.format(order.id, order.customer.name, str(order.date_order), order.purchased_book.name)
+
+        return str_orders

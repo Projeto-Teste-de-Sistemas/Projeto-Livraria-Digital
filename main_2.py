@@ -10,11 +10,12 @@ from repositories.order_repository import OrderRepository
 book_repository = BookRepository()
 customer_repository = CustomerRepository()
 order_repository = OrderRepository()
-book_repository.add_books("Aula_6/books.csv")
+book_repository.add_books("books.csv")
 
-customer_repository.add_customer(Customer(0,"Administrador"))
+
+cliente = Customer(1,"kaua")
+customer_repository.add_customer(cliente)
 
 user_interface = UserInterface(book_repository,customer_repository,order_repository)
-
 
 user_interface.run()

@@ -20,12 +20,7 @@ class UserInterface:
 
     def principal_menu(self) -> int:
         try:
-            print("1 - Cadastrar cliente")
-            print("2 - Fazer pedido")
-            print("3 - Relatório de Pedidos")
-            print("4 - Relatório de Clientes")
-            print("5 - Relatório de Livros")
-            print("0 - Sair")
+            print("1 - Cadastrar cliente\n2 - Fazer pedido\n3 - Relatório de Pedidos\n4 - Relatório de Clientes\n5 - Relatório de Livros\n0 - Sair")
             return int(input("Informe a opção do menu: "))
         except:
             print("A opção informada é inválida, o programa vai ser encerrado...")
@@ -54,13 +49,13 @@ class UserInterface:
                 
                 if (not self.customerRepository.verify_exists_customer(customer_id)):
                     print("Cliente não existe!")
-                    continue
+                    
                 customer = self.customerRepository.get_customer(customer_id)
 
                 book_id = int(input("Informe o código do livro: "))
                 if (not self.bookRepository.verify_exists_book(book_id)):
                     print("Livro não existe!")
-                    continue
+                    
 
                 book = self.bookRepository.get_book(book_id)
                 order = Order(id, customer, today)

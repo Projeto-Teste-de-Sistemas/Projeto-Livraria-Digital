@@ -4,14 +4,12 @@ from entities.customer import Customer
 def test_check_if_customer_exists():
     # Arrange
     customer_repository = CustomerRepository()
-    customer_repository.list_customers = []
     customer1 = Customer(1, "Kauã")
-    customer2 = Customer(2, "Paulo")
     # Act
  
     customer_repository.add_customer(customer1)
-    resultOK = customer_repository.verify_exists_customer(customer1)
-    resultNOK = customer_repository.verify_exists_customer(customer2)
+    resultOK = customer_repository.verify_exists_customer(1)
+    resultNOK = customer_repository.verify_exists_customer(2)
  
     # Assert
     assert resultOK == True
@@ -44,7 +42,7 @@ def test_get_client():
     resultOK = customer_repository.get_customer(1)
  
     # Assert
-    assert resultOK == True
+    assert resultOK.name == "Meire"
    
  
  

@@ -1,3 +1,4 @@
+from Facade import Facade
 from datetime import date 
 from entities.book import Book
 from entities.customer import Customer
@@ -6,47 +7,51 @@ from repositories.book_repository import BookRepository
 from repositories.customer_repository import CustomerRepository
 from repositories.order_repository import OrderRepository
 
-class UserInterface:
-    def __init__(
-        self,bookRepository:BookRepository,
-        customerRepository:CustomerRepository,
-        orderRepository:OrderRepository
-                ) -> None:
 
-        self.bookRepository = bookRepository
-        self.customerRepository = customerRepository
-        self.orderRepository = orderRepository
+book_repository = BookRepository()
+customer_repository = CustomerRepository()
+order_repository = OrderRepository()
+book_repository.add_books("books.csv")
+facade = Facade(book_repository,customer_repository,order_repository)
 
-    def get_customer_by_user(self)->str:
-        id = int(input("Informe o código do cliente: "))
-        name = input("Informe o nome do cliente: ")
-        customer = Customer(id, name)
-                    
-        print(self.customerRepository.add_customer(customer))
-                
 
-    def get_order_by_user(self)->str:
-                id = int(input("Informe o código do pedido: "))
-                customer_id = int(input("Informe o código do cliente: "))
-                today = date.today()
-                
-                if (not self.customerRepository.verify_exists_customer(customer_id)):
-                    print("Cliente não existe!")
-                    
-                customer = self.customerRepository.get_customer(customer_id)
+def principal_menu() -> int:
+        try:
+            print("1 - Cadastrar cliente\n2 - Fazer pedido\n3 - Relatório de Pedidos\n4 - Relatório de Clientes\n5 - Relatório de Livros\n0 - Sair")
+            return int(input("Informe a opção do menu: "))
+        except:
+            print("A opção informada é inválida, o programa vai ser encerrado...")
+            return 0
 
-                book_id = int(input("Informe o código do livro: "))
-                if (not self.bookRepository.verify_exists_book(book_id)):
-                    print("Livro não existe!")
-                    
 
-                book = self.bookRepository.get_book(book_id)
-                order = Order(id, customer, today)
-                if (not self.orderRepository.verify_exists_order(id)):
-                    print("Livro não existe!")
+def run() -> None:    
+    while True:
 
-                order.purchased_book = book
-                print(self.orderRepository.add_order(order))
-                
+        menu_option = principal_menu()
+        if (menu_option == 0):
+            break
 
-            
+        print("\n")
+
+        if menu_option == 1: #CADASTRA CLIENTE
+            print(facade.get_customer_by_user())
+
+        if menu_option == 2: #fAZ PEDIDO
+            print(facade.get_order_by_user())
+
+        if menu_option == 3: #RELATÓRIO PEDIDOS
+            print("\n***** Relatório de pedidos *****\n")
+            print(facade.orderRepository)
+
+        if menu_option == 4: #RELATÓRIO CLIENTES
+            print("\n***** Relatório de cliente *****\n")
+            print(facade.customerRepository)
+
+        if menu_option == 5: #RELATÓRIO LIVROS
+            print("\n***** Relatório de livros *****\n")
+            print(facade.bookRepository)
+
+
+if __name__ == "__main__":
+    run()
+

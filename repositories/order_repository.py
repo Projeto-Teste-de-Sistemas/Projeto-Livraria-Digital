@@ -14,7 +14,7 @@ class OrderRepository:
         return"Código de pedido já existente"
 
 
-    def verify_exists_order(self, order_id) -> bool:
+    def verify_exists_order(self, order_id: int) -> bool:
         for item in self.list_orders:
             if (order_id == item.id):
                 return True

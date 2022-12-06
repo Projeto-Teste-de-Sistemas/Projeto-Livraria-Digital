@@ -29,14 +29,16 @@ class BookRepository:
         for item in self.list_books:
             if item.id == book_id:
                 return True
-            else: 
-                return False
+
+        return False
 
 
     def get_book(self, book_id:int) -> Book:
         for item in self.list_books:
-            if item.id == book_id: return item
-            else: return False
+            if item.id == book_id:
+                return item
+
+        return False
 
 
 

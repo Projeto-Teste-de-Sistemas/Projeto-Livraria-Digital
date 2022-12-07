@@ -2,12 +2,14 @@
   "python.testing.unittestArgs": [
     "-v",
     "-s",
-    "./__pycache__",
+    "./tests",
     "-p",
     "test_*.py"
   ],
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestArgs": ["entities"],
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
   "python.analysis.extraPaths": ["./repositories", "./entities"]
 }

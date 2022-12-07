@@ -16,13 +16,10 @@ def test_add_books():
 def test_format_str_price_to_float():
     # Arrange
     book_repository = BookRepository()
-    book_str = "015;Alongamento;85-7480-264-6;Sérgio Medeiros;Literatura brasileira, Poesia;62,00"
-    list_book = book.split(";")
+    book_str = "015;Alongamento;85-7480-264-6;Sérgio Medeiros;Literatura brasileira, Poesia;RS62,00"
+    list_book = book_str.split(";")
 
     # Act
-    book = Book(int(list_book[0]), list_book[1], list_book[2],list_book[3],list_book[4], book_repository.format_str_price_to_float(list_book[5]))
+    book = Book(int(list_book[0]), list_book[1], list_book[2], list_book[3], list_book[4], book_repository.format_str_price_to_float(list_book[5]))
 
     assert book.price == 0
-
-
-    

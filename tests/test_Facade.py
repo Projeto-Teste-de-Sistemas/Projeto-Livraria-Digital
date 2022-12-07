@@ -70,3 +70,44 @@ def test_adicionar_ordem_sem_estoque(monkeypatch):
 
     #Assert
     assert result == "Livro sem estoque"
+
+
+def test_adicionar_ordem_sem_livro(monkeypatch):
+    # Arrange
+    book_repository = BookRepository()
+    customer_repository = CustomerRepository()
+    order_repository = OrderRepository()
+    book_repository.add_books("books.csv")
+    facade = Facade(book_repository,customer_repository,order_repository)
+    custumer1=Customer(1,"Adm")
+    facade.customerRepository.add_customer(custumer1)
+
+    # Act
+    responses = iter([1,1,1,2,1,999])
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    facade.get_order_by_user()
+    result = facade.get_order_by_user()
+
+    #Assert
+    assert result == "Livro não existe!"
+
+
+def test_fazer_pedido_sem_cliente(monkeypatch):
+    # Arrange
+    book_repository = BookRepository()
+    customer_repository = CustomerRepository()
+    order_repository = OrderRepository()
+    book_repository.add_books("books.csv")
+    facade = Facade(book_repository,customer_repository,order_repository)
+
+    # Act
+    responses = iter([1,1,1,1])
+    monkeypatch.setattr('builtins.input', lambda _: next(responses))
+    facade.get_order_by_user()
+    result = facade.get_order_by_user()
+
+    #Assert
+    assert result == "Cliente não existe!"
+
+
+

@@ -23,7 +23,6 @@ class BookRepository:
             list_book[3],list_book[4], self.format_str_price_to_float(list_book[5]))
 
             self.list_books.append(book)
-
         
     def verify_exists_book(self,book_id:int) -> bool:
         for item in self.list_books:
@@ -32,6 +31,16 @@ class BookRepository:
 
         return False
 
+    def verify_book_price_more_than_zero(self,book_id:int) -> bool:
+        book = self.get_book(book_id)
+        if book.price == 0:
+            return False
+
+        return True
+
+    def book_stock_down(self,book_id:int) -> bool:
+        book = self.get_book(book_id)
+        book.stock = 0
 
     def get_book(self, book_id:int) -> Book:
         for item in self.list_books:
@@ -39,8 +48,6 @@ class BookRepository:
                 return item
 
         return False
-
-
 
     def __str__(self) -> str:
         formatText = "{0:<5} {1:<25} {2:<20} {3:<20} {4:<5} {5:<10}\n"

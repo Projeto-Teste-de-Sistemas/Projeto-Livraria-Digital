@@ -41,16 +41,17 @@ class Facade:
                 book_id = int(input("Informe o código do livro: "))
                 if (not self.bookRepository.verify_exists_book(book_id)):
                     return("Livro não existe!")
-
+                
+                if (not self.bookRepository.verify_book_price_more_than_zero(book_id)):
+                    return("Livro sem preço!")
 
                 book = self.bookRepository.get_book(book_id)
                 if(book.stock == 0):
                     return("Livro sem estoque")
 
-                book.stock = 0
+                self.bookRepository.book_stock_down(book_id)
                 order = Order(id, customer, today)
                 order.purchased_book = book
-
 
                 return(self.orderRepository.add_order(order))
 
